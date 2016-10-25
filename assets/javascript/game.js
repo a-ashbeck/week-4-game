@@ -43,48 +43,34 @@ $(document).ready(function() {
         $('#starting-characters').append(
             '<div class="col-md-12 col-sm-12 col-xs-12">' +
             '<h2>Choose a character to start the game!</h2></div>' +
-            '<div class="character col-md-3 col-sm-6 col-xs-12 ' +
+            '<div class="character col-md-2 col-sm-4 col-xs-12 ' +
             'luke-skywalker"></div>' +
-            '<div class="character col-md-3 col-sm-6 col-xs-12 darth-vader">' +
-            '</div><div class="character col-md-3 col-sm-6 col-xs-12 ' +
+            '<div class="character col-md-2 col-sm-4 col-xs-12 darth-vader">' +
+            '</div><div class="character col-md-2 col-sm-4 col-xs-12 ' +
             'obi-wan-kenobi"></div><div ' +
-            'class="character col-md-3 col-sm-6 col-xs-12 kylo-ren"></div>'
-        );
-        // Creates html and outputs character object data for Luke Skywalker
-        $('.luke-skywalker').append(
-            '<div class="panel panel-default"><div class="panel-heading">' +
-            lukeSkywalker.name + '</div>' +
-            '<div class="panel-body"><img class="img-responsive" src="' +
-            lukeSkywalker.image + '"></div>' +
-            '<div class="panel-footer">' + lukeSkywalker.health + '</div></div>'
+            'class="character col-md-2 col-sm-4 col-xs-12 kylo-ren"></div>'
         );
 
-        // Creates html and outputs character object data for Darth Vader
-        $('.darth-vader').append(
-            '<div class="panel panel-default"><div class="panel-heading">' +
-            darthVader.name + '</div>' +
-            '<div class="panel-body"><img class="img-responsive" src="' +
-            darthVader.image + '"></div>' +
-            '<div class="panel-footer">' + darthVader.health + '</div></div>'
-        );
+        generateCharacterPanels();
+    }
 
-        // Creates html and outputs character object data for Obi-Wan Kenobi
-        $('.obi-wan-kenobi').append(
-            '<div class="panel panel-default"><div class="panel-heading">' +
-            obiWanKenobi.name + '</div>' +
-            '<div class="panel-body"><img class="img-responsive" src="' +
-            obiWanKenobi.image + '"></div>' +
-            '<div class="panel-footer">' + obiWanKenobi.health + '</div></div>'
-        );
+    var characterObject = {
+        'luke-skywalker': lukeSkywalker,
+        'darth-vader': darthVader,
+        'obi-wan-kenobi': obiWanKenobi,
+        'kylo-ren': kyloRen
+    };
 
-        // Creates html and outputs character object data for Kylo Ren
-        $('.kylo-ren').append(
-            '<div class="panel panel-default"><div class="panel-heading">' +
-            kyloRen.name + '</div>' +
-            '<div class="panel-body"><img class="img-responsive" src="' +
-            kyloRen.image + '"></div>' +
-            '<div class="panel-footer">' + kyloRen.health + '</div></div>'
-        );
+    function generateCharacterPanels() {
+        jQuery.each( characterObject, function( i, val ) {
+            $('.' + i ).append(
+                '<div class="panel panel-default"><div ' +
+                'class="panel-heading">' + val.name + '</div>' +
+                '<div class="panel-body"><img class="img-responsive" ' +
+                'src="' +  val.image + '"></div>' +
+                '<div class="panel-footer">' + val.health + '</div></div>'
+            );
+        });
     }
 
     createCharacters();
@@ -204,24 +190,31 @@ $(document).ready(function() {
             mainCharacter.attack = mainCharacter.attack + mainCharacter.attackIncrement;
 
             if (mainCharacter.health <= 0) {
-                $('#status').append(
-                  '<h3>You have been defeated... GAME OVER!</h3>'
-                );
-                $('#attack').attr('disabled', true);
-                $('.restart-row').show();
+                gameLost();
             } else if (defender.health <= 0) {
-                winCounter++;
-                $('#status').append(
-                  '<h3>You have defeated ' + defender.name + ', you can choose to fight another enemy.</h3>'
-                );
-                $('#attack').attr('disabled', true);
-                $('.defender').empty();
-                defender = {};
-                disableAttackBtn();
+                battleWon();
                 wasGameWon();
             };
         };
     });
+
+    function gameLost() {
+        $('#status').append(
+          '<h3>You have been defeated... GAME OVER!</h3>'
+        );
+        $('#attack').attr('disabled', true);
+        $('.restart-row').show();
+    }
+    function battleWon() {
+        winCounter++;
+        $('#status').append(
+          '<h3>You have defeated ' + defender.name + ', you can choose to fight another enemy.</h3>'
+        );
+        $('#attack').attr('disabled', true);
+        $('.defender').empty();
+        defender = {};
+        disableAttackBtn();
+    }
 
     function disableAttackBtn() {
         $('#attack').attr('disabled', false);
@@ -256,25 +249,4 @@ $(document).ready(function() {
         // $('#restart').hide();
         location.reload(true);
     });
-
-
-    // push object.health of each defender to this array
-    // var defenderHealthArray = [];
-
-    // if (defenderHealthArray <= [0, 0, 0]) {
-        // Display you win!
-        // Give option to restart
-    // };
-
-    // if (mainCharacter.health <= 0) {
-        // Display you lose!
-        // give option to restart
-    // };
-
-    // The first character click assign mainCharacter the selected character object.
-    // remaining character clicks assign character object to defender.
-    //
-    //
-    // restart function will activate upon click of restart button, and will reset all object data back to baseline and move all elements back to their original positions and colors.
-
 });
