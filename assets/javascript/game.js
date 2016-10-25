@@ -2,6 +2,7 @@ $(document).ready(function() {
     var lukeSkywalker = {
         name: 'Luke Skywalker',
         health: 100,
+        baseHealth: 100,
         attack: 5,
         attackIncrement: 5,
         image: 'assets/images/luke.jpg'
@@ -10,6 +11,7 @@ $(document).ready(function() {
     var darthVader = {
         name: 'Darth Vader',
         health: 180,
+        baseHealth: 180,
         attack: 25,
         attackIncrement: 25,
         image: 'assets/images/vader.jpg'
@@ -18,14 +20,16 @@ $(document).ready(function() {
     var obiWanKenobi = {
         name: 'Obi-Wan Kenobi',
         health: 120,
+        baseHealth: 120,
         attack: 8,
-        attackIncremenet: 8,
+        attackIncrement: 8,
         image: 'assets/images/kenobi.jpg'
     };
 
     var kyloRen = {
         name: 'Kylo Ren',
         health: 150,
+        baseHealth: 150,
         attack: 20,
         attackIncrement: 20,
         image: 'assets/images/kylo.jpg'
@@ -33,8 +37,19 @@ $(document).ready(function() {
 
     var mainCharacter = {};
     var defender = {};
+    var winCounter = 0;
 
     function createCharacters() {
+        $('#starting-characters').append(
+            '<div class="col-md-12 col-sm-12 col-xs-12">' +
+            '<h2>Choose a character to start the game!</h2></div>' +
+            '<div class="character col-md-3 col-sm-6 col-xs-12 ' +
+            'luke-skywalker"></div>' +
+            '<div class="character col-md-3 col-sm-6 col-xs-12 darth-vader">' +
+            '</div><div class="character col-md-3 col-sm-6 col-xs-12 ' +
+            'obi-wan-kenobi"></div><div ' +
+            'class="character col-md-3 col-sm-6 col-xs-12 kylo-ren"></div>'
+        );
         // Creates html and outputs character object data for Luke Skywalker
         $('.luke-skywalker').append(
             '<div class="panel panel-default"><div class="panel-heading">' +
@@ -73,6 +88,7 @@ $(document).ready(function() {
     }
 
     createCharacters();
+    $('.restart-row').hide();
 
     // Logic dictating where characters are assigned based on click order
     $('.character').on('click', function() {
@@ -189,28 +205,56 @@ $(document).ready(function() {
 
             if (mainCharacter.health <= 0) {
                 $('#status').append(
-                  '<h3>You have been defeated... GAME OVER!</h3>' +
-                  '<button id="restart">Restart</button>'
+                  '<h3>You have been defeated... GAME OVER!</h3>'
                 );
                 $('#attack').attr('disabled', true);
+                $('.restart-row').show();
             } else if (defender.health <= 0) {
+                winCounter++;
                 $('#status').append(
                   '<h3>You have defeated ' + defender.name + ', you can choose to fight another enemy.</h3>'
                 );
                 $('#attack').attr('disabled', true);
+                $('.defender').empty();
+                defender = {};
+                disableAttackBtn();
+                wasGameWon();
             };
         };
     });
 
-
-    $(document).on('click', '#restart', function() {
-        $('.main-character').empty();
-        $('.defender').empty();
-        $('#status').empty();
-        mainCharacter = {};
-        defender = {};
-        $('#starting-characters').appendcreateCharacters();
+    function disableAttackBtn() {
         $('#attack').attr('disabled', false);
+    }
+
+    function wasGameWon() {
+        if (winCounter === 3) {
+            $('#status').append('<h3>You Won the Game!</h3>');
+            $('.restart-row').show();
+        };
+    }
+
+    // Function to restart the game at any given moment
+    $('#restart').on('click', function() {
+        // $('#starting-characters').empty();
+        // $('.main-character').empty();
+        // $('.defender').empty();
+        // $('#enemies').empty();
+        // mainCharacter = {};
+        // defender = {};
+        // lukeSkywalker.health = lukeSkywalker.baseHealth;
+        // lukeSkywalker.attack = lukeSkywalker.attackIncrement;
+        // darthVader.health = darthVader.baseHealth;
+        // darthVader.attack = darthVader.attackIncrement;
+        // obiWanKenobi.health = obiWanKenobi.baseHealth;
+        // obiWanKenobi.attack = obiWanKenobi.attackIncrement;
+        // kyloRen.health = kyloRen.baseHealth;
+        // kyloRen.attack = kyloRen.attackIncrement;
+        // createCharacters();
+        // $('#attack').attr('disabled', false);
+        // $('#status').empty();
+        // $('#restart').hide();
+        location.reload(true);
     });
 
 

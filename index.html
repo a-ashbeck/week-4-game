@@ -12,71 +12,80 @@
   <script src="assets/javascript/game.js" charset="utf-8"></script>
 </head>
 <body>
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12" id="starting-characters">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="starting-characters">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+          <h2>Choose a character to start the game!</h2>
+        </div>
+        <div class="character col-md-3 col-sm-6 col-xs-12 luke-skywalker">
+
+        </div>
+
+        <div class="character col-md-3 col-sm-6 col-xs-12 darth-vader">
+
+        </div>
+
+        <div class="character col-md-3 col-sm-6 col-xs-12 obi-wan-kenobi">
+
+        </div>
+
+        <div class="character col-md-3 col-sm-6 col-xs-12 kylo-ren">
+
+        </div> -->
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Choose a character to start the game!</h2>
+        <h2>Your Character:</h2>
       </div>
-      <div class="character col-md-3 col-sm-6 col-xs-12 luke-skywalker">
-
-      </div>
-
-      <div class="character col-md-3 col-sm-6 col-xs-12 darth-vader">
-
-      </div>
-
-      <div class="character col-md-3 col-sm-6 col-xs-12 obi-wan-kenobi">
-
-      </div>
-
-      <div class="character col-md-3 col-sm-6 col-xs-12 kylo-ren">
+      <div class="col-md-3 col-sm-6 col-xs-12 main-character">
 
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2>Your Character:</h2>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12 main-character">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Enemy Combatants:</h2>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12" id="enemies">
 
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2>Enemy Combatants:</h2>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Click the attack button to fight your opponent!</h2>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">
+        <button id="attack">Attack!</button>
+      </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12" id="enemies">
 
-    </div>
-  </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Your Opponent:</h2>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12 defender">
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2>Click the attack button to fight your opponent!</h2>
+      </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">
-      <button id="attack">Attack!</button>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2>Your Opponent:</h2>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12 defender">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Status:</h2>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12" id="status">
 
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2>Status:</h2>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12" id="status">
-
+    <div class="row restart-row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Restart the Game</h2>
+      </div>
+      <button id="restart">Restart</button>
     </div>
   </div>
 </body>
