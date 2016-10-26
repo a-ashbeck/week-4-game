@@ -128,7 +128,7 @@ $(document).ready(function() {
         postWins();
         $('#status').append(
           '<div class="alert alert-success">You have defeated ' +
-          defender.name + ', you can choose to fight another enemy.</div>'
+          defender.name + ', you can choose to fight another enemy...</div>'
         );
         $('#attack').attr('disabled', true);
         $('.defender').empty();
@@ -228,8 +228,9 @@ $(document).ready(function() {
             $('#status').append(
                 '<p>You attacked ' + defender.name + ' for ' +
                 mainCharacter.attack +
-                ' damage.</p><p>' + defender.name + ' attacked you back for ' +
-                defender.counterAttack + ' damage.</p>'
+                ' damage...</p><p>' + defender.name +
+                ' attacked you back for ' +
+                defender.counterAttack + ' damage...</p>'
             );
             mainCharacter.attack = mainCharacter.attack + mainCharacter.attackIncrement;
 
