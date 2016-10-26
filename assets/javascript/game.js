@@ -3,19 +3,19 @@ $(document).ready(function() {
         name: 'Luke Skywalker',
         health: 100,
         baseHealth: 100,
-        attack: 5,
-        attackIncrement: 5,
-        // counterAttack: ,
+        attack: 26,
+        attackIncrement: 26,
+        counterAttack: 6,
         image: 'assets/images/luke.jpg'
     };
 
     var darthVader = {
         name: 'Darth Vader',
-        health: 180,
-        baseHealth: 180,
-        attack: 25,
-        attackIncrement: 25,
-        // counterAttack: ,
+        health: 150,
+        baseHealth: 150,
+        attack: 8,
+        attackIncrement: 8,
+        counterAttack: 25,
         image: 'assets/images/vader.jpg'
     };
 
@@ -23,19 +23,19 @@ $(document).ready(function() {
         name: 'Obi-Wan Kenobi',
         health: 120,
         baseHealth: 120,
-        attack: 8,
-        attackIncrement: 8,
-        // counterAttack: ,
+        attack: 12,
+        attackIncrement: 12,
+        counterAttack: 10,
         image: 'assets/images/kenobi.jpg'
     };
 
     var kyloRen = {
         name: 'Kylo Ren',
-        health: 150,
-        baseHealth: 150,
-        attack: 20,
-        attackIncrement: 20,
-        // counterAttack: ,
+        health: 130,
+        baseHealth: 130,
+        attack: 10,
+        attackIncrement: 10,
+        counterAttack: 20,
         image: 'assets/images/kylo.jpg'
     };
 
@@ -178,7 +178,8 @@ $(document).ready(function() {
             $('.main-character').empty();
             $('.defender').empty();
             defender.health = defender.health - mainCharacter.attack;
-            mainCharacter.health = mainCharacter.health - defender.attack;
+            mainCharacter.health = mainCharacter.health -
+                defender.counterAttack;
             $('.main-character').append(
                 '<h3>Your Character:</h3>' +
                 '<div class="panel panel-primary"><div class="panel-heading">' +
@@ -201,7 +202,7 @@ $(document).ready(function() {
                 '<p>You attacked ' + defender.name + ' for ' +
                 mainCharacter.attack +
                 ' damage.</p><p>' + defender.name + ' attacked you back for ' +
-                defender.attack + ' damage.</p>'
+                defender.counterAttack + ' damage.</p>'
             );
             mainCharacter.attack = mainCharacter.attack + mainCharacter.attackIncrement;
 
