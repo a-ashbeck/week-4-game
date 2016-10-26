@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Star Wars RPG</title>
   <link rel="stylesheet" href="assets/css/reset.css">
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" integrity="sha384-L/tgI3wSsbb3f/nW9V6Yqlaw3Gj7mpE56LWrhew/c8MIhAYWZ/FNirA64AVkB5pI" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
   <script src="assets/javascript/game.js" charset="utf-8"></script>
@@ -15,61 +15,72 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12" id="starting-characters">
-        
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Your Character:</h2>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12 main-character">
 
       </div>
     </div>
 
     <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12 main-character">
+
+      </div>
+
+      <div id="stats" class="col-md-4 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2>Battle Zone</h2>
+          </div>
+          <div class="panel-body">
+
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h2 class="panel-title">Status:</h2>
+              </div>
+
+              <div class="panel-body">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <p id="status-wins"></p>
+                  <p>R2's Battle Update:</p>
+                  <div id="status" class="well">
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="restart-row">
+                <button id="restart" class="btn btn-warning btn-lg btn-block">
+                  Restart the Game
+                </button>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">
+              <h6>Click the attack button to fight your opponent!</h6>
+              <button id="attack" class="btn btn-danger btn-lg btn-block">
+                Attack!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12 defender pull-right">
+
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Enemy Combatants:</h2>
+        <h3>Enemy Combatants:</h3>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12" id="enemies">
 
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Click the attack button to fight your opponent!</h2>
-      </div>
-      <div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">
-        <button id="attack">Attack!</button>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Your Opponent:</h2>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12 defender">
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Status:</h2>
-      </div>
-      <div class="col-md-12 col-sm-12 col-xs-12" id="status">
-
-      </div>
-    </div>
-
-    <div class="row restart-row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <h2>Restart the Game</h2>
-      </div>
-      <button id="restart">Restart</button>
-    </div>
   </div>
+  <audio id="lightsaber-clash">
+    <source src="assets/audio/lightsaber.mp3" type="audio/mpeg">
+  </audio>
 </body>
 </html>

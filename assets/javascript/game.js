@@ -5,6 +5,7 @@ $(document).ready(function() {
         baseHealth: 100,
         attack: 5,
         attackIncrement: 5,
+        // counterAttack: ,
         image: 'assets/images/luke.jpg'
     };
 
@@ -14,6 +15,7 @@ $(document).ready(function() {
         baseHealth: 180,
         attack: 25,
         attackIncrement: 25,
+        // counterAttack: ,
         image: 'assets/images/vader.jpg'
     };
 
@@ -23,6 +25,7 @@ $(document).ready(function() {
         baseHealth: 120,
         attack: 8,
         attackIncrement: 8,
+        // counterAttack: ,
         image: 'assets/images/kenobi.jpg'
     };
 
@@ -32,12 +35,28 @@ $(document).ready(function() {
         baseHealth: 150,
         attack: 20,
         attackIncrement: 20,
+        // counterAttack: ,
         image: 'assets/images/kylo.jpg'
     };
 
     var mainCharacter = {};
     var defender = {};
     var winCounter = 0;
+
+    function postWins() {
+        $('#status-wins').empty();
+        $('#status-wins').append('Wins: ' + winCounter);
+    }
+
+    function renderDom() {
+      // $('body').append(
+      //   '<div class="container"><div class="row"><div class="col-md-12 col-sm-12 col-xs-12" id="starting-characters"></div></div><div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Your Character:</h2></div><div class="col-md-3 col-sm-6 col-xs-12 main-character"></div></div><div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Enemy Combatants:</h2></div><div class="col-md-12 col-sm-12 col-xs-12" id="enemies"></div></div><div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Click the attack button to fight your opponent!</h2></div><div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone"><button id="attack">Attack!</button></div></div><div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Your Opponent:</h2></div><div class="col-md-3 col-sm-6 col-xs-12 defender"></div></div><div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Status:</h2></div><div class="col-md-12 col-sm-12 col-xs-12" id="status"></div></div><div class="row restart-row"><div class="col-md-12 col-sm-12 col-xs-12"><h2>Restart the Game</h2></div><button id="restart">Restart</button></div></div>'
+      // );
+      createCharacters();
+      generateCharacterPanels();
+      $('.restart-row').hide();
+      postWins();
+    }
 
     function createCharacters() {
         $('#starting-characters').append(
@@ -50,8 +69,6 @@ $(document).ready(function() {
             'obi-wan-kenobi"></div><div ' +
             'class="character col-md-2 col-sm-4 col-xs-12 kylo-ren"></div>'
         );
-
-        generateCharacterPanels();
     }
 
     var characterObject = {
@@ -73,8 +90,7 @@ $(document).ready(function() {
         });
     }
 
-    createCharacters();
-    $('.restart-row').hide();
+    renderDom();
 
     // Logic dictating where characters are assigned based on click order
     $('.character').on('click', function() {
@@ -102,7 +118,8 @@ $(document).ready(function() {
             };
 
             $('.main-character').append(
-                '<div class="panel panel-info"><div class="panel-heading">' +
+                '<h3>Your Character:</h3>' +
+                '<div class="panel panel-primary"><div class="panel-heading">' +
                 mainCharacter.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" src="' +
                 mainCharacter.image + '"></div>' +
@@ -119,22 +136,18 @@ $(document).ready(function() {
             $(this).hasClass('chosen-character') === false)
           ) {
             if (
-                $(this).hasClass('character') &&
                 $(this).hasClass('luke-skywalker')
             ) {
                 defender = lukeSkywalker;
             } else if (
-                $(this).hasClass('character') &&
                 $(this).hasClass('darth-vader')
             ) {
                 defender = darthVader;
             } else if (
-                $(this).hasClass('character') &&
                 $(this).hasClass('obi-wan-kenobi')
             ) {
                 defender = obiWanKenobi;
             } else if (
-                $(this).hasClass('character') &&
                 $(this).hasClass('kylo-ren')
             ) {
                 defender = kyloRen;
@@ -143,6 +156,7 @@ $(document).ready(function() {
             $(this).hide();
 
             $('.defender').append(
+                '<h3>Your Opponent:</h3>' +
                 '<div class="panel panel-danger"><div class="panel-heading">' +
                 defender.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" src="' +
@@ -157,7 +171,7 @@ $(document).ready(function() {
         if (Object.keys(defender).length === 0) {
             $('#status').empty();
             $('#status').append(
-                '<h3>No enemy here</h3>'
+                '<h4>No enemy here</h4>'
             );
         } else {
             $('#status').empty();
@@ -166,7 +180,8 @@ $(document).ready(function() {
             defender.health = defender.health - mainCharacter.attack;
             mainCharacter.health = mainCharacter.health - defender.attack;
             $('.main-character').append(
-                '<div class="panel panel-info"><div class="panel-heading">' +
+                '<h3>Your Character:</h3>' +
+                '<div class="panel panel-primary"><div class="panel-heading">' +
                 mainCharacter.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" src="' +
                 mainCharacter.image + '"></div>' +
@@ -174,6 +189,7 @@ $(document).ready(function() {
                 '</div></div>'
             );
             $('.defender').append(
+                '<h3>Your Opponent:</h3>' +
                 '<div class="panel panel-danger"><div class="panel-heading">' +
                 defender.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" src="' +
@@ -200,15 +216,18 @@ $(document).ready(function() {
 
     function gameLost() {
         $('#status').append(
-          '<h3>You have been defeated... GAME OVER!</h3>'
+          '<div class="alert alert-dismissible alert-danger">' +
+          'You have been defeated... <strong>GAME OVER!</strong></div>'
         );
         $('#attack').attr('disabled', true);
         $('.restart-row').show();
     }
     function battleWon() {
         winCounter++;
+        postWins();
         $('#status').append(
-          '<h3>You have defeated ' + defender.name + ', you can choose to fight another enemy.</h3>'
+          '<div class="alert alert-success">You have defeated ' +
+          defender.name + ', you can choose to fight another enemy.</div>'
         );
         $('#attack').attr('disabled', true);
         $('.defender').empty();
