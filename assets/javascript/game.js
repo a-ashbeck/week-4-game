@@ -55,13 +55,12 @@ $(document).ready(function() {
 
     // Function to post and update win counter in status section
     function postWins() {
-        $('#status-wins').empty();
-        $('#status-wins').append('Wins: ' + winCounter);
+        $('#status-wins').html('Wins: ' + winCounter);
     }
 
     // Function to call base HTML structure
     function renderStartContent() {
-        $('body').append(
+        $('body').html(
           '<div class="jumbotron">' +
             '<h1 class="text-center">STAR WARS</h1>' +
             '<p class="text-center lead">...the RPG</p>' +
@@ -144,7 +143,7 @@ $(document).ready(function() {
 
     //  Function that creates the character field in the DOM
     function createCharacters() {
-        $('#starting-characters').append(
+        $('#starting-characters').html(
             '<div class="col-md-12 col-sm-12 col-xs-12">' +
             '<h2>Choose a character to start the game!</h2></div>' +
             '<div class="character col-md-2 col-sm-4 col-xs-12 ' +
@@ -158,20 +157,20 @@ $(document).ready(function() {
 
     //  Function that generates the available characters in the DOM
     function generateCharacterPanels() {
-        jQuery.each( characterObject, function( i, val ) {
-            $('.' + i ).append(
+        $.each( characterObject, function( characterClass, characterStats ) {
+            $('.' + characterClass ).html(
                 '<div class="panel panel-default"><div ' +
-                'class="panel-heading">' + val.name + '</div>' +
+                'class="panel-heading">' + characterStats.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" ' +
-                'src="' +  val.image + '"></div>' +
-                '<div class="panel-footer">' + val.health + '</div></div>'
+                'src="' +  characterStats.image + '"></div>' +
+                '<div class="panel-footer">' + characterStats.health + '</div></div>'
             );
         });
     }
 
     //  Function that generates the main character in the DOM
     function generateMainCharacter() {
-        $('.main-character').append(
+        $('.main-character').html(
             '<h3>Your Character:</h3>' +
             '<div class="panel panel-primary"><div class="panel-heading">' +
             mainCharacter.name + '</div>' +
@@ -184,7 +183,7 @@ $(document).ready(function() {
 
     //  Function that generates the defender in the DOM
     function generateDefender() {
-        $('.defender').append(
+        $('.defender').html(
             '<h3>Your Opponent:</h3>' +
             '<div class="panel panel-danger"><div class="panel-heading">' +
             defender.name + '</div>' +
@@ -245,18 +244,18 @@ $(document).ready(function() {
     }
 
     //  Function to handle logic of main character assignment
-    function mainCharacterAssigner(a) {
-        if ($(a).hasClass('luke-skywalker')) {
+    function mainCharacterAssigner(selectedCharacter) {
+        if ($(selectedCharacter).hasClass('luke-skywalker')) {
             mainCharacter = lukeSkywalker;
             $('.darth-vader').appendTo('#enemies');
             $('.obi-wan-kenobi').appendTo('#enemies');
             $('.kylo-ren').appendTo('#enemies');
-        } else if ($(a).hasClass('darth-vader')) {
+        } else if ($(selectedCharacter).hasClass('darth-vader')) {
             mainCharacter = darthVader;
             $('.luke-skywalker').appendTo('#enemies');
             $('.obi-wan-kenobi').appendTo('#enemies');
             $('.kylo-ren').appendTo('#enemies');
-        } else if ($(a).hasClass('obi-wan-kenobi')) {
+        } else if ($(selectedCharacter).hasClass('obi-wan-kenobi')) {
             mainCharacter = obiWanKenobi;
             $('.luke-skywalker').appendTo('#enemies');
             $('.darth-vader').appendTo('#enemies');
@@ -270,21 +269,21 @@ $(document).ready(function() {
     }
 
     // Function to handle logic of defender assignment
-    function defenderAssigner(b) {
+    function defenderAssigner(selectedDefender) {
         if (
-            $(b).hasClass('luke-skywalker')
+            $(selectedDefender).hasClass('luke-skywalker')
         ) {
             defender = lukeSkywalker;
         } else if (
-            $(b).hasClass('darth-vader')
+            $(selectedDefender).hasClass('darth-vader')
         ) {
             defender = darthVader;
         } else if (
-            $(b).hasClass('obi-wan-kenobi')
+            $(selectedDefender).hasClass('obi-wan-kenobi')
         ) {
             defender = obiWanKenobi;
         } else if (
-            $(b).hasClass('kylo-ren')
+            $(selectedDefender).hasClass('kylo-ren')
         ) {
             defender = kyloRen;
         };
@@ -292,22 +291,20 @@ $(document).ready(function() {
 
     // Function that updates the status panel with game updates each click
     function attackUpdates() {
-        emptyStatusPanel();
-        $('.main-character').empty();
-        $('.defender').empty();
         defender.health = defender.health - mainCharacter.attack;
         mainCharacter.health = mainCharacter.health -
             defender.counterAttack;
         generateMainCharacter();
         generateDefender();
-        $('#status').append(
+        $('#status').html(
             '<p>You attacked ' + defender.name + ' for ' +
             mainCharacter.attack +
             ' damage...</p><p>' + defender.name +
             ' attacked you back for ' +
             defender.counterAttack + ' damage...</p>'
         );
-        mainCharacter.attack = mainCharacter.attack + mainCharacter.attackIncrement;
+        mainCharacter.attack = mainCharacter.attack +
+            mainCharacter.attackIncrement;
 
         if (mainCharacter.health <= 0) {
             gameLost();
@@ -340,7 +337,7 @@ $(document).ready(function() {
         $('#attack').on('click', function() {
             if (Object.keys(defender).length === 0) {
                 emptyStatusPanel();
-                $('#status').append(
+                $('#status').html(
                     '<h4>No enemy here</h4>'
                 );
             } else {
@@ -369,7 +366,6 @@ $(document).ready(function() {
             defender = {},
             winCounter = 0;
             resetCharacterObjectData();
-            $('body').empty();
             renderDom();
             gamePlay();
         });
