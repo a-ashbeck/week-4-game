@@ -1,5 +1,5 @@
 $(document).ready(function() {
-        // Character objects containing stats and images
+    // Character objects containing stats and images
     var lukeSkywalker = {
             name: 'Luke Skywalker',
             health: 100,
@@ -58,78 +58,107 @@ $(document).ready(function() {
         $('#status-wins').html('Wins: ' + winCounter);
     }
 
-    // Function to call base HTML structure
-    function renderStartContent() {
+    // Function to add Jumbotron and Container structure to DOM
+    function createJumboAndContainer() {
         $('body').html(
           '<div class="jumbotron">' +
             '<h1 class="text-center">STAR WARS</h1>' +
             '<p class="text-center lead">...the RPG</p>' +
           '</div>' +
           '<div class="container">' +
-            '<div class="row">' +
-              '<div class="col-md-12 col-sm-12 col-xs-12" id="starting-characters">' +
+          '</div>'
+        );
+    }
 
-              '</div>' +
+    // Function to create the row system and basic outline for the container
+    function createContainerSkeleton() {
+        $('.container').html(
+          '<div class="row">' +
+            '<div class="col-md-12 col-sm-12 col-xs-12" ' +
+            'id="starting-characters">' +
+
+            '</div>' +
+          '</div>' +
+
+          '<div class="row">' +
+            '<div class="col-md-4 col-sm-6 col-xs-12 main-character">' +
+
             '</div>' +
 
-            '<div class="row">' +
-              '<div class="col-md-4 col-sm-6 col-xs-12 main-character">' +
+            '<div id="stats" class="col-md-4 col-sm-12 col-xs-12">' +
 
-              '</div>' +
+            '</div>' +
 
-              '<div id="stats" class="col-md-4 col-sm-12 col-xs-12">' +
-                '<div class="panel panel-default">' +
-                  '<div class="panel-heading">' +
-                    '<h2>Battle Zone</h2>' +
-                  '</div>' +
-                  '<div class="panel-body">' +
+            '<div class="col-md-4 col-sm-6 col-xs-12 defender pull-right">' +
 
-                    '<div class="panel panel-info">' +
-                      '<div class="panel-heading">' +
-                        '<h2 class="panel-title">Status:</h2>' +
-                      '</div>' +
+            '</div>' +
+          '</div>' +
 
-                      '<div class="panel-body">' +
-                        '<div class="col-md-12 col-sm-12 col-xs-12">' +
-                          '<p id="status-wins"></p>' +
-                          '<p>R2\'s Battle Update:</p>' +
-                          '<div id="status" class="well">' +
+          '<div class="row">' +
+            '<div class="col-md-12 col-sm-12 col-xs-12">' +
+              '<h3>Enemy Combatants:</h3>' +
+            '</div>' +
+            '<div class="col-md-12 col-sm-12 col-xs-12" id="enemies">' +
 
-                          '</div>' +
-                        '</div>' +
-                      '</div>' +
-                    '</div>' +
+            '</div>' +
+          '</div>'
+        );
+    }
 
-                    '<div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">' +
-                      '<div class="restart-row">' +
-                        '<button id="restart" class="btn btn-warning btn-lg btn-block">' +
-                          'Restart the Game' +
-                        '</button>' +
-                      '</div>' +
-                      '<h6>Click the attack button to fight your opponent!</h6>' +
-                      '<button id="attack" class="btn btn-danger btn-lg btn-block">' +
-                        'Attack!' +
-                      '</button>' +
+    //  Function to create the stats panel in the DOM
+    function createStatsPanel() {
+        $('#stats').html(
+          '<div class="panel panel-default">' +
+            '<div class="panel-heading">' +
+              '<h2>Battle Zone</h2>' +
+            '</div>' +
+            '<div class="panel-body">' +
+
+              '<div class="panel panel-info">' +
+                '<div class="panel-heading">' +
+                  '<h2 class="panel-title">Status:</h2>' +
+                '</div>' +
+
+                '<div class="panel-body">' +
+                  '<div class="col-md-12 col-sm-12 col-xs-12">' +
+                    '<p id="status-wins"></p>' +
+                    '<p>R2\'s Battle Update:</p>' +
+                    '<div id="status" class="well">' +
+
                     '</div>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
 
-              '<div class="col-md-4 col-sm-6 col-xs-12 defender pull-right">' +
-
-              '</div>' +
-            '</div>' +
-
-            '<div class="row">' +
-              '<div class="col-md-12 col-sm-12 col-xs-12">' +
-                '<h3>Enemy Combatants:</h3>' +
-              '</div>' +
-              '<div class="col-md-12 col-sm-12 col-xs-12" id="enemies">' +
+              '<div class="col-md-12 col-sm-12 col-xs-12" id="battle-zone">' +
 
               '</div>' +
             '</div>' +
           '</div>'
         );
+    }
+
+    // Function to create the battle zone in the stats panel
+    function createBattleZone() {
+        $('#battle-zone').html(
+          '<div class="restart-row">' +
+            '<button id="restart" class="btn btn-warning btn-lg btn-block">' +
+              'Restart the Game' +
+            '</button>' +
+          '</div>' +
+          '<h6>Click the attack button to fight your opponent!</h6>' +
+          '<button id="attack" class="btn btn-danger btn-lg btn-block">' +
+            'Attack!' +
+          '</button>'
+        );
+    }
+
+    // Function to call base HTML structure
+    function renderStartContent() {
+        createJumboAndContainer();
+        createContainerSkeleton();
+        createStatsPanel();
+        createBattleZone();
     }
 
     //  Function to call render the DOM
@@ -163,7 +192,8 @@ $(document).ready(function() {
                 'class="panel-heading">' + characterStats.name + '</div>' +
                 '<div class="panel-body"><img class="img-responsive" ' +
                 'src="' +  characterStats.image + '"></div>' +
-                '<div class="panel-footer">' + characterStats.health + '</div></div>'
+                '<div class="panel-footer">' + characterStats.health +
+                '</div></div>'
             );
         });
     }
